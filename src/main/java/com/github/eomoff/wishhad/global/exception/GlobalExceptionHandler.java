@@ -31,7 +31,7 @@ public class GlobalExceptionHandler {
     log.warn("[Validation] {}", message);
     return ResponseEntity
         .status(HttpStatus.BAD_REQUEST)
-        .body(ApiResponse.error(ErrorCode.INVALID_INPUT, message));
+        .body(ApiResponse.error(CommonErrorCode.INVALID_INPUT, message));
   }
 
   @ExceptionHandler(ConstraintViolationException.class)
@@ -42,7 +42,7 @@ public class GlobalExceptionHandler {
     log.warn("[ConstraintViolation] {}", message);
     return ResponseEntity
         .status(HttpStatus.BAD_REQUEST)
-        .body(ApiResponse.error(ErrorCode.INVALID_INPUT, message));
+        .body(ApiResponse.error(CommonErrorCode.INVALID_INPUT, message));
   }
 
   @ExceptionHandler(NoResourceFoundException.class)
@@ -50,7 +50,7 @@ public class GlobalExceptionHandler {
     log.warn("[NoResource] {}", e.getMessage());
     return ResponseEntity
         .status(HttpStatus.NOT_FOUND)
-        .body(ApiResponse.error(ErrorCode.RESOURCE_NOT_FOUND));
+        .body(ApiResponse.error(CommonErrorCode.RESOURCE_NOT_FOUND));
   }
 
   @ExceptionHandler(Exception.class)
@@ -58,6 +58,6 @@ public class GlobalExceptionHandler {
     log.error("[UnhandledException] ", e);
     return ResponseEntity
         .status(HttpStatus.INTERNAL_SERVER_ERROR)
-        .body(ApiResponse.error(ErrorCode.INTERNAL_SERVER_ERROR));
+        .body(ApiResponse.error(CommonErrorCode.INTERNAL_SERVER_ERROR));
   }
 }

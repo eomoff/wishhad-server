@@ -1,19 +1,18 @@
 package com.github.eomoff.wishhad.global.exception;
 
 import lombok.Getter;
-import org.springframework.http.HttpStatus;
 
 @Getter
 public class BusinessException extends RuntimeException {
 
-  private final ErrorCode errorCode;
+  private final CommonErrorCode errorCode;
 
-  public BusinessException(ErrorCode errorCode) {
+  public BusinessException(CommonErrorCode errorCode) {
     super(errorCode.getMessage());
     this.errorCode = errorCode;
   }
 
-  public BusinessException(ErrorCode errorCode, String message) {
+  public BusinessException(CommonErrorCode errorCode, String message) {
     super(message);
     this.errorCode = errorCode;
   }
