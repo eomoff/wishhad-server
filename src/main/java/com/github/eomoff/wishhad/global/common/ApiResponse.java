@@ -1,6 +1,7 @@
 package com.github.eomoff.wishhad.global.common;
 
 import com.github.eomoff.wishhad.global.exception.CommonErrorCode;
+import com.github.eomoff.wishhad.global.exception.ErrorCode;
 import lombok.Getter;
 
 @Getter
@@ -26,11 +27,11 @@ public class ApiResponse<T> {
     return new ApiResponse<>(true, "Created", data, null);
   }
 
-  public static ApiResponse<Void> error(CommonErrorCode errorCode) {
+  public static ApiResponse<Void> error(ErrorCode errorCode) {
     return new ApiResponse<>(false, errorCode.getMessage(), null, errorCode.getCode());
   }
 
-  public static ApiResponse<Void> error(CommonErrorCode errorCode, String message) {
+  public static ApiResponse<Void> error(ErrorCode errorCode, String message) {
     return new ApiResponse<>(false, message, null, errorCode.getCode());
   }
 }
