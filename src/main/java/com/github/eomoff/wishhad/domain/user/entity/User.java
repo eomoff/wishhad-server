@@ -28,7 +28,7 @@ public class User extends BaseEntity {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @Column(nullable = false, unique = true, length = 100)
+  @Column(nullable = false, unique = true)
   private String email;
 
   @Column(nullable = false)
@@ -37,10 +37,13 @@ public class User extends BaseEntity {
   @Column(nullable = false, length = 50)
   private String name;
 
-  @Column(nullable = false, unique = true, length = 50)
+  @Column(nullable = false, unique = true)
   private String nickname;
 
-  @Column(nullable = false, unique = true, length = 20)
+  @Column(nullable = false, unique = true)
+  private String phoneNumber;
+
+  @Column(unique = true)
   private String employeeNumber;
 
   @ManyToOne(fetch = FetchType.LAZY)
@@ -57,22 +60,23 @@ public class User extends BaseEntity {
 
   private Instant approvedAt;
 
-  private User(String email, String password, String name, String nickname, String employeeNumber, Department department) {
+  private User(String email, String password, String name, String nickname, String phoneNumber) {
     this.email = email;
     this.password = password;
     this.name = name;
     this.nickname = nickname;
-    this.employeeNumber = employeeNumber;
-    this.department = department;
+    this.phoneNumber = phoneNumber;
     this.status = UserStatus.PENDING;
   }
 
-  public static User register(String email, String password, String name, String nickname, String employeeNumber, Department department) {
-    return new User(email, password, name, nickname, employeeNumber, department);
+  public static User register(String email, String password, String name, String nickname, String phoneNumber) {
+    return new User(email, password, name, nickname, phoneNumber);
   }
 
-  public void approve(User approver, Instant approvedAt) {
+  public void approve(String employeeNumber, Department department, User approver, Instant approvedAt) {
     this.status = UserStatus.ACTIVE;
+    this.employeeNumber = employeeNumber;
+    this.department = department;
     this.approvedBy = approver;
     this.approvedAt = approvedAt;
   }
